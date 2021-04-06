@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Boolzapp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="./assets/css/master.css">
+  </head>
+  <body>
+    <header>
+      <div class="container-fluid bar-green">
+
+      </div>
+    </header>
+    <main>
+      <div class="container-fluid background-grey">
+        <div class="container window" id="root">
+            <div class="navbar-profile">
+              <div class="row-flex">
+                <div class="navbar-left col-xs-4">
+                    <img class="avatar" src="./assets/img/avatar_8.jpg" alt="">
+                    <div class="icon-flex">
+                      <i class="fas fa-circle-notch"></i>
+                      <i class="fas fa-comment-alt"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+                <div class="navbar-right col-xs-8">
+                  <img class="avatar" :src="`./assets/img/avatar${contacts[index].avatar}.jpg`" alt="">
+                    <div class="nav-client">
+                      <span class="nome-client">{{ contacts[index].name }}</span>
+                      <span class="last-access">ultimo accesso {{ getLastAccess(index) }}</span>
+                    </div>
+                  <div class="icon-flex">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-paperclip"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="container-left col-xs-4">
+            <div class="row-not">
+              <i class="fas fa-bell-slash"></i>
+              <div class="not-column">
+                <span class="not-msg">Ricevi notifiche di nuovi messaggi</span>
+                <span class="not-active">Attiva notifiche</span>
+              </div>
+            </div>
+            <div class="row-search-contact">
+              <i class="fas fa-search"></i>
+              <input v-model="filter"
+              placeholder="Cerca o inizia una nuova chat"
+               type="text" name="" value="">
+            </div>
+            <div class="container-chat" >
+              <div class="msg-left"
+               v-for="(contact, i) in contacts"
+               v-if="contact.name.toLowerCase().includes(filter.toLowerCase())"
+               :class= "(i == index ) ? 'active' : ''"
+
+               @click="index = i">
+                <img class="avatar" :src="`./assets/img/avatar${contact.avatar}.jpg`" alt="">
+                <div class="not-column">
+                  <span class="nome-client">{{ contact.name }}</span>
+                  <span>{{ contact.text }}</span>
+                </div>
+                <span class="time" >{{ contact.date}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="container-right col-xs-8">
+              <div class="container-fluid main-window" >
+                <div class="right-messages" >
+                  <div class="msg-case"  v-for="message in contacts[index].messages" :class="message.status">
+                    <span class="text-int" >{{message.text}}
+                      <span class="time-msg">{{getTime(message.date)}}</span>
+                    </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row-input">
+                <i class="fas fa-grin"></i>
+                <input v-model="message"
+                @keyup.enter="send" class="insert-msg" type="text" name="" value="">
+                <i class="fas fa-microphone"></i>
+              </div>
+
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js" integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg==" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./assets/js/dati.js" charset="utf-8"></script>
+    <script src="./assets/js/main.js" charset="utf-8"></script>
+
+  </body>
+</html>
